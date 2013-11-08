@@ -44,14 +44,12 @@ assetsApp.directive("drawing", function($window){
         ctxCircle.clearRect(0, 0, width, height);
       }
 
-      var draw = function(x, y, color) {
+      var draw = function(x, y) {
         clear();
         rectan(0,0,width,height);
-        ctxCircle.fillStyle = color;
+        ctxCircle.fillStyle = "white";
         circle(x, y, 10);
       }
-
-      console.log("LLAMA");
 
       draw(10, 10);
 
