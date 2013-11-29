@@ -1,6 +1,6 @@
 'use strict';
 
-var assetsApp = angular.module('assetsApp', ['angular-gestures'])
+var assetsApp = angular.module('assetsApp', ['angular-gestures', 'ngResource', 'ngCookies'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/', {
@@ -11,12 +11,25 @@ var assetsApp = angular.module('assetsApp', ['angular-gestures'])
         templateUrl: 'views/user-detail.html',
         controller: 'UserDetailCtrl'
       }).
+      when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });
   }]);
 
-assetsApp.run(function($rootScope, $location, $window){
+assetsApp.config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.defaults.useXDomain = true;
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  }
+]);
+
+assetsApp.run(function($rootScope, $location, $window, $cookieStore, $http){
+
+  $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
+
   $rootScope.go = function ( path ) {
     $location.path( path );
   };

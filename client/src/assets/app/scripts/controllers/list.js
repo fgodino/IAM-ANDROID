@@ -1,5 +1,14 @@
+'use strict';
 
+assetsApp.controller("listCtrl", ["$scope", "$http", function($scope, $http){
+  $scope.users = [];
 
-assetsApp.controller("listCtrl", ["$scope", function($scope){
-  $scope.users = [{name:"Fernando", is : "Contento!"}, {name:"Paco", is : "Triste!"}];
+  $http({method: 'GET', url: 'http://localhost:6001/friends'}).
+    success(function(data, status) {
+      $scope.users = data;
+    }).
+    error(function(data, status) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
 }]);

@@ -10,6 +10,6 @@ var statusSchema = new Schema({
   likes : [{follower : Schema.Types.ObjectId, text : String}]
 });
 
-var Status = mongoose.model('User', userSchema);
+var Status = mongoose.model('Status', statusSchema);
 
-exports.User = User;
+module.exports = statusSchema;

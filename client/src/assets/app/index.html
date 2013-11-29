@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="dist/css/holo-dark/stack.css" />
         <link rel="stylesheet" href="dist/css/holo-dark/tabs.css" />
         <link rel="stylesheet" href="dist/css/holo-dark/toasts.css" />
+        <link href='http://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
     </head>
     <body ng-app="assetsApp">
 
@@ -44,17 +45,22 @@
         <!-- Add your site or application content here -->
         <div class="container" ng-view></div>
 
+        <script src="config.js"></script>
         <script src="scripts/vendor/angular.js"></script>
         <script src="scripts/vendor/gestures.min.js"></script>
+        <script src="scripts/vendor/angular-cookies.js"></script>
+        <script src="scripts/vendor/angular-resource.min.js"></script>
         <script src="scripts/vendor/cordova.js"></script>
 
         <!-- build:js scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/list.js"></script>
         <script src="scripts/controllers/userdetail.js"></script>
         <script src="scripts/services/geolocation.js"></script>
         <script src="scripts/services/cordovaReady.js"></script>
+        <script src="scripts/services/utils.js"></script>
         <script src="scripts/directives/colorpicker.js"></script>
         <script src="dist/fries.min.js"></script>
         <!-- endbuild -->
