@@ -49,7 +49,6 @@ var registry = function(req, res){
 }
 
 var completeRegistry = function(req, res){
-  console.log("LLEGA");
   if(!utils.hasAllKeys(req.body, config.registerValues)){
     res.send(400, "Missing values");
   } else {

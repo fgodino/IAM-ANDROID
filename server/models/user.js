@@ -52,6 +52,7 @@ userSchema.options.toJSON.transform = function (doc, ret, options) {
   delete ret.__v;
   delete ret.hashed_password;
   delete ret.salt;
+  delete ret.statuses;
 }
 
 var User = mongoose.model('User', userSchema);

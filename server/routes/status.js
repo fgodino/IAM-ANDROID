@@ -31,7 +31,6 @@ exports.new = function(req, res){
 
 exports.get = function(req, res){
   Status.findById(req.params.id, function(err, status){
-    console.log("sdgsgsg");
     if(err){
       return res.send(500);
     }

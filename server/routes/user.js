@@ -5,12 +5,12 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-exports.list = function(req, res){
-  res.send("respond with a resource");
-};
 
-exports.get = function(req, res){
-  User.findOne({username : req.params.id}, function(err, user){
+exports.get = get = function(req, res){
+  User
+  .findOne({username : req.params.id})
+  .populate('current_status')
+  .exec(function(err, user){
     if(err){
       return res.send(500);
     }
@@ -21,30 +21,24 @@ exports.get = function(req, res){
   });
 }
 
-exports.getMe = function(req, res){
-  User.findById(req.user.id, function(err, user){
-    if(err){
-      res.send(500);
-    } else {
-      res.send(user.toJSON());
-    }
-  });
+exports.getMe = getMe = function(req, res){
+  req.params.id = req.user.username;
+  get(req, res);
 }
 
-exports.getFriends = function(req, res){
+exports.getFriends = getFriends = function(req, res){
   User
   .findOne({username : req.user.username})
   .populate('following', 'username likes name picture current_status')
-  .populate('following.current_status')
   .exec(function (err, users) {
     console.log(users);
-    users.populate('current_status', function(err, doc){
-      res.send(doc.following);
+    User.populate(users.following, {path : 'current_status', select : "status color"}, function(err, doc){
+      res.send(doc);
     });
   });
 }
 
-exports.addFriend = function(req, res){
+exports.addFriend = addFriend = function(req, res){
   if(!req.body.id){
     return res.send(400);
   }

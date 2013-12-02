@@ -126,6 +126,8 @@
  background-color: #fff;
  -webkit-box-shadow: 0 2px 1px rgba(0,0,0,.25);
  box-shadow: 0 2px 1px rgba(0,0,0,.25);
+ width: 80px;
+ height: 80px;
 }
 .left {
   text-align: center;
