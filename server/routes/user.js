@@ -12,10 +12,12 @@ exports.list = function(req, res){
 exports.get = function(req, res){
   User.findOne({username : req.params.id}, function(err, user){
     if(err){
-      res.send(500);
-    } else {
-      res.send(user.toJSON());
+      return res.send(500);
     }
+    if(!user){
+      return res.send(404);
+    }
+    return res.send(user.toJSON());
   });
 }
 
@@ -33,9 +35,10 @@ exports.getFriends = function(req, res){
   User
   .findOne({username : req.user.username})
   .populate('following', 'username likes name picture current_status')
+  .populate('following.current_status')
   .exec(function (err, users) {
-    User.populate(users, {path : 'current_status'}, function(err, doc){
-      console.log(err, doc)
+    console.log(users);
+    users.populate('current_status', function(err, doc){
       res.send(doc.following);
     });
   });
@@ -55,6 +58,11 @@ exports.addFriend = function(req, res){
     if(err || !user){
       return res.send(400);
     }
-    db.students.update({ _id: req.user._id }, {$addToSet: { following: user._id}});
+    User.findByIdAndUpdate(req.user.id, {$addToSet: { following: user._id}}, function(err, update){
+      if(err){
+        return res.send(500);
+      }
+      return res.send("Ok");
+    });
   });
 }

@@ -83,6 +83,10 @@ app.post('/status',
   auth.authenticate('basic', { session: false }),
   status.new);
 
+app.get('/status/:id',
+  auth.authenticate('basic', { session: false }),
+  status.get);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

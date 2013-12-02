@@ -21,10 +21,23 @@ exports.new = function(req, res){
         //TODO Refactor to so asyncronously
         User.findByIdAndUpdate(me, {$addToSet: { statuses: result._id}}, function(err, r){
           User.findByIdAndUpdate(me, {$set: {current_status: result}}, function(err, r){
-             res.send(200, result);
+             res.send(200, result.toJSON());
           });
         });
       }
     });
   }
+}
+
+exports.get = function(req, res){
+  Status.findById(req.params.id, function(err, status){
+    console.log("sdgsgsg");
+    if(err){
+      return res.send(500);
+    }
+    if(!status){
+      return res.send(404);
+    }
+    return res.send(status.toJSON());
+  });
 }

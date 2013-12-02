@@ -7,7 +7,7 @@ var userSchema = new Schema({
   number: {type : String, trim : true, required : true, unique: true},
   name: String,
   picture: String,
-  statuses: [Schema.Types.ObjectId],
+  statuses: [{type : Schema.Types.ObjectId, ref : 'Status'}],
   current_status: {type : Schema.Types.ObjectId, ref : 'Status'},
   following : [{type : Schema.Types.ObjectId, ref : 'User'}],
   hashed_password: {type : String},
