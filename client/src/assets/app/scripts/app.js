@@ -17,7 +17,11 @@ var assetsApp = angular.module('assetsApp', ['angular-gestures', 'ngResource', '
       }).
       when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'registerCtrl'
+        controller: 'RegisterCtrl'
+      }).
+      when('/addfriend', {
+        templateUrl: 'views/addfriend.html',
+        controller: 'AddfriendCtrl'
       }).
       otherwise({
         redirectTo: '/'

@@ -10,3 +10,5 @@ if (!String.format) {
     });
   };
 }
+
+var HOST = "http://localhost:6001/";

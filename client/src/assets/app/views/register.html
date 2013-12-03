@@ -2,13 +2,10 @@
 <body>
     <div class="page">
 
-        <div class="content login">
-          <form class="loginform container-center" ng-submit="submit()">
-            <h1>Login</h1>
-            <input type="text" class="form-field" ng-model="user.username" placeholder="username"/>
-            <input type="password" class="form-field" ng-model="user.password" placeholder="username"/>
-            <button type="submit" class="submit">Iniciar sesión</button>
-          </form>
+
+
+        <div class="slide-animate-container">
+          <div class="slide-animate" ng-include="template"></div>
         </div>
 
         <div class="dialogs">
@@ -16,4 +13,33 @@
         </div>
 
     </div>
+    <script type="text/ng-template" id="validatetpl">
+      <div class="content login">
+          <form class="loginform container-center text-center" ng-submit="validate(number)">
+            <h1>Introduce tu número</h1>
+            <input type="text" class="form-field" ng-model="number" placeholder="número"/>
+            <button type="submit" class="submit">Enviar número</button>
+          </form>
+        </div>
+    </script>
+    <script type="text/ng-template" id="checktpl">
+      <div class="content login">
+          <form class="loginform container-center text-center" ng-submit="check(code)">
+            <h1>Introduce tu código</h1>
+            <input type="text" class="form-field" ng-model="code" placeholder="código"/>
+            <button type="submit" class="submit">Enviar código</button>
+          </form>
+        </div>
+    </script>
+    <script type="text/ng-template" id="registertpl">
+      <div class="content login">
+          <form class="loginform container-center text-center" ng-submit="register()">
+            <h1>Registrate!</h1>
+            <input type="text" class="form-field" ng-model="registerValues.name" placeholder="Nombre"/>
+            <input type="text" class="form-field" ng-model="registerValues.username" placeholder="username"/>
+            <input type="password" class="form-field" ng-model="registerValues.password" placeholder="password"/>
+            <button type="submit" class="submit">Registrate!</button>
+          </form>
+        </div>
+    </script>
 </body>

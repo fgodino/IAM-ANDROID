@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<body>
+  <div class="page">
+
+    <div class="content login">
+      <form class="form-flex container-center text-center padding-center" ng-submit="submit()">
+        <h1 class="sosie">Añadir amigo</h1>
+        <div class="flex-group">
+          <span class="flex2 input-pretty focus"><input type="tel" class="input-text" placeholder="{{option}}"></span>
+          <div class="form-spinner">
+            <a href="javascript: void(0);" class="toggle-spinner">{{option}}</a>
+            <ul class="spinner" style="display: block;">
+              <li class="spinner-item"><a ng-tap="changeInput(0)" href="javascript: void(0);">Username</a></li>
+              <li class="spinner-item"><a ng-tap="changeInput(1)" href="javascript: void(0);">Telefono</a></li>
+            </ul>
+          </div>
+        </div>
+        <button type="submit" class="submit">Iniciar sesión</button>
+      </form>
+    </div>
+
+    <div class="dialogs">
+      <!-- This is a requried container for your dialogs. All dialogs that you want to display in this page go here -->
+    </div>
+
+  </div>
+</body>

@@ -65,5 +65,21 @@ var completeRegistry = function(req, res){
   }
 }
 
+var checkCode = function(req, res){
+  Validation.findOne({'number' : req.query.number}, function(err,result){
+    if(!result || err){
+      return res.send(401, "You must validate before");
+    }
+
+    if(result.code === req.query.code){
+      return res.send(200);
+    } else {
+      res.send(401, "Invalid code");
+    }
+
+  });
+}
+
 exports.send = send;
 exports.registry = registry;
+exports.checkCode = checkCode;

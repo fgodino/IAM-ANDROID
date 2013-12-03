@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost/test');
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Authorization');
+    res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
@@ -62,6 +62,8 @@ app.post('/login',
 app.post('/validate', validate.send);
 
 app.post('/registry', validate.registry);
+
+app.post('/check', validate.checkCode);
 
 app.get('/friends/:id',
   auth.authenticate('basic', { session: false }),
