@@ -70,6 +70,10 @@ form {
 [class*="flex"].input-text + [class*="flex"].input-text {
   margin-left: 10px; }
 
+.input-text::-webkit-input-placeholder {
+    color: white;
+}
+
 .input-text {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

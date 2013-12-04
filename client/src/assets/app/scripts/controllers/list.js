@@ -4,7 +4,7 @@ assetsApp.controller("listCtrl", ["$scope", "$http", function($scope, $http){
   $scope.users = [];
 
 
-  $http({method: 'GET', url: 'http://localhost:6001/friends'}).
+  $http({method: 'GET', url: HOST + 'friends'}).
     success(function(data, status) {
       $scope.users = data;
     }).

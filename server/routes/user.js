@@ -43,7 +43,7 @@ exports.addFriend = addFriend = function(req, res){
     return res.send(400);
   }
 
-  var option = req.query.option || 'number';
+  var option = req.query.option || 'username';
   var condition = {};
   condition[option] = req.body.id;
   User
