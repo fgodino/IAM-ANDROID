@@ -19,17 +19,26 @@
 
 package com.jaunesarmiento.fries;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.webkit.CookieManager;
+
 import org.apache.cordova.*;
 
+@SuppressLint("NewApi")
 public class HelloFries extends DroidGap
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+    	try{
+            CookieManager.setAcceptFileSchemeCookies(true);
+        }catch(Throwable e){}
+    	
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl("file:///android_asset/app/index.html");
+        CookieManager.getInstance().setAcceptCookie(true);
     }
 }
 

@@ -24,6 +24,11 @@ assetsApp.controller('MainCtrl', function ($scope, geolocation, $http, $location
   };
 
   $scope.addform = function(){
+    $scope.addStack(function(){
+      alert("me ejecutan");
+      $scope.search = false;
+      $scope.id = "";
+    });
     $scope.search = true;
   };
 });

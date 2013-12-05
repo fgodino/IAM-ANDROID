@@ -155,7 +155,6 @@
 
 .main-search .input-text::-webkit-input-placeholder{
   color: rgba(255,255,255, 0.5);
-  font-size: 11px;
   vertical-align: baseline;
   bottom: 0;
 }

@@ -3,7 +3,7 @@
 assetsApp.controller('UserDetailCtrl', function ($scope, $routeParams, $http) {
   $scope.user = {};
 
-  $http({method: 'GET', url: 'http://localhost:6001/friends/' + $routeParams.userId}).
+  $http({method: 'GET', url: HOST + 'friends/' + $routeParams.userId}).
     success(function(data, status) {
       $scope.user = data;
     }).

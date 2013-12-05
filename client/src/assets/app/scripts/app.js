@@ -1,7 +1,7 @@
 'use strict';
 
 var assetsApp = angular.module('assetsApp', ['angular-gestures', 'ngResource', 'ngCookies'])
-  .config(['$routeProvider', function($routeProvider) {
+  .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -26,6 +26,10 @@ var assetsApp = angular.module('assetsApp', ['angular-gestures', 'ngResource', '
       otherwise({
         redirectTo: '/'
       });
+
+      $locationProvider.html5Mode(true);
+      $locationProvider.hashPrefix('!');
+
   }]);
 
 assetsApp.config(['$httpProvider', function ($httpProvider) {
@@ -34,7 +38,7 @@ assetsApp.config(['$httpProvider', function ($httpProvider) {
   }
 ]);
 
-assetsApp.run(function($rootScope, $location, $window, $cookieStore, $http, $timeout, $templateCache, $route, Auth){
+assetsApp.run(function($rootScope, $location, $window, $document, $cookieStore, $http, $timeout, $templateCache, $route, Auth){
 
   $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
 
@@ -88,15 +92,34 @@ assetsApp.run(function($rootScope, $location, $window, $cookieStore, $http, $tim
       });
 
   $rootScope.$on('$viewContentLoaded', function(){
-    console.log("LOADED");
     friesHello();
+    document.addEventListener("backbutton", onBackKeyDown, false);
   });
 
   $rootScope.go = function ( path ) {
     $location.path( path );
+    $rootScope.addStack($window.history.back);
   };
 
+  var stack = [];
+
   $rootScope.back = function () {
-    $window.history.back();
+    var back = stack.pop();
+    if(!back){
+      return navigator.app.exitApp();
+    }
+    back.call($window.history);
   };
+
+  $rootScope.addStack = function(funback){
+    stack.push(funback);
+    alert(stack.length);
+  }
+
+  function onBackKeyDown(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    $rootScope.back();
+  }
+
 });
