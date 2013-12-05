@@ -1,33 +1,41 @@
 <body >
-    <div class="page">
+  <div class="page">
 
-        <header class="action-bar fixed-top">
+    <header class="action-bar fixed-top" ng-cotroller="AddfriendCtrl">
+      <div class="table">
+        <div class="td">
           <a class="app-icon action" data-ignore="true">
             <i class="icon-fries"></i>
           </a>
-
-          <h1 class="title">Title</h1>
-          <ul class="actions pull-right">
-            <li><a href="javascript: void(0);" hm-tap="go('/addfriend')" class="action" title="Add friend"><i class="icon-add-person"></i></a></li>
-
-          </ul>
-
-          <!-- Add action buttons here -->
-
-        </header>
-
-        <div class="content">
-            <ul class="list" ng-controller="listCtrl">
-              <li ng-style="{'-webkit-box-shadow' : 'inset 20px 0 0 0 ' + user.current_status.color}" class="list-item-two-lines selectable bordered" ng-repeat="user in users" hm-tap="go('/users/' + user.username)">
-                <h3>{{user.name || user.username}}</h3>
-                <p>{{user.current_status.status}}</p>
-              </li>
-            </ul>
+          <h1 ng-hide="search" class="title">IAM</h1>
         </div>
-
-        <div class="dialogs">
-          <!-- This is a requried container for your dialogs. All dialogs that you want to display in this page go here -->
+        <div ng-show="search" class="td action main-search">
+          <span class="input-pretty">
+            <input type="text" ng-model="id" placeholder="Introduce el nombre de usuario o móvil" class="input-text">
+          </span>
         </div>
+        <ul ng-hide="search" class="td actions pull-right">
+          <li hm-tap="addform()"><a href="javascript: void(0);" class="action" title="Add"><i class="icon-search"></i></a></li>
+          <li><a href="javascript: void(0);" hm-tap="addform();" class="action" title="Add friend"><i class="icon-add-person"></i></a></li>
+        </ul>
+        <ul ng-show="search" class="td actions pull-right">
+          <li><a href="javascript: void(0);" hm-tap="add()" class="action" title="Add"><i class="icon-new"></i></a></li>
+        </ul>
+      </div>
+    </header>
 
+    <div class="content">
+      <ul class="list main-list" ng-controller="listCtrl">
+        <li ng-style="{'-webkit-box-shadow' : 'inset 20px 0 0 0 ' + user.current_status.color}" class="list-item-two-lines selectable bordered" ng-repeat="user in users" hm-tap="go('/users/' + user.username)">
+          <h3>{{user.name || user.username}}</h3>
+          <p>{{user.current_status.status}}</p>
+        </li>
+      </ul>
     </div>
+
+    <div class="dialogs">
+      <!-- This is a requried container for your dialogs. All dialogs that you want to display in this page go here -->
+    </div>
+
+  </div>
 </body>

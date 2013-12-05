@@ -43,7 +43,7 @@ form {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
   form.form-flex .flex-group {
-    display: -webkit-box;
+    displabey: -webkit-box;
     display: -moz-box;
     display: box;
     -webkit-box-orient: horizontal;
@@ -69,10 +69,6 @@ form {
 
 [class*="flex"].input-text + [class*="flex"].input-text {
   margin-left: 10px; }
-
-.input-text::-webkit-input-placeholder {
-    color: white;
-}
 
 .input-text {
   -webkit-box-sizing: border-box;

@@ -153,3 +153,11 @@ a {
 
 .pull-right {
   float: right !important; }
+
+/**
+Custom
+*/
+
+body {
+  background-color: white;
+}

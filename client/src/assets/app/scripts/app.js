@@ -87,6 +87,11 @@ assetsApp.run(function($rootScope, $location, $window, $cookieStore, $http, $tim
         $location.path('/login');
       });
 
+  $rootScope.$on('$viewContentLoaded', function(){
+    console.log("LOADED");
+    friesHello();
+  });
+
   $rootScope.go = function ( path ) {
     $location.path( path );
   };

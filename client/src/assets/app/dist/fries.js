@@ -1,3 +1,4 @@
+function friesHello(){
 (function () {
 
   // Action overflow
@@ -216,6 +217,7 @@
   var prettifyInput = function () {
     var inputs = document.querySelectorAll('.input-text'),
         i = inputs.length;
+        console.log(i)
 
     while (i--) {
       // Iterate over all input elements and restyle them
@@ -223,8 +225,6 @@
           wrapper = document.createElement('span');
 
       // Wrap the input element in span.input-pretty if we haven't yet
-      if (!el.parentNode.classList.contains('input-pretty')) {
-
         if (el.classList.contains('flex1')) {
           wrapper.classList.add('flex1');
           el.classList.remove('flex1');
@@ -238,15 +238,9 @@
           el.classList.remove('flex3');
         }
 
-        wrapper.classList.add('input-pretty');
-        el.parentNode.insertBefore(wrapper, el);
-        el.parentNode.removeChild(el);
-        wrapper.appendChild(el);
-
         // Add the focus/blur event handlers so it matches the style of the input element
         el.addEventListener('focus', toggleFocus, false);
         el.addEventListener('blur', toggleFocus, false);
-      }
     }
   };
 
@@ -255,10 +249,7 @@
     el.parentNode.classList.toggle('focus');
   };
 
-  window.addEventListener('load', prettifyInput);
-  window.addEventListener('resize', prettifyInput, false);
-  window.addEventListener('popstate', prettifyInput, false);
-  window.addEventListener('push', prettifyInput, false);
+  prettifyInput();
 }());;(function(){
 
   // Checks whether the event target is a .toggle-spinner button
@@ -813,3 +804,4 @@
   fries.utils = utils;
 
 }());
+}

@@ -140,8 +140,33 @@
   text-align: center;
 }
 
-.user-box .right {
+.main-search {
+  height: 48px;
+  padding: 0!important;
+}
 
+.main-search .input-text {
+  height: auto;
+  padding: 8px;
+  color: white;
+  border-bottom: 1px solid white;
+  margin: 0;
+}
+
+.main-search .input-text::-webkit-input-placeholder{
+  color: rgba(255,255,255, 0.5);
+  font-size: 11px;
+  vertical-align: baseline;
+  bottom: 0;
+}
+
+.main-search .input-pretty {
+  margin-bottom: 4px;
+}
+.main-search .input-pretty:before,
+.main-search .input-pretty:after{
+  background: white;
+  width: 1px;
 }
 
 

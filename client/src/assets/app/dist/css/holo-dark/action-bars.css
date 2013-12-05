@@ -47,15 +47,8 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-bottom: 1px solid #505050;
-  background: rgb(255,208,91); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(255,208,91,1) 1%, rgba(255,165,0,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(255,208,91,1)), color-stop(100%,rgba(255,165,0,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(255,208,91,1) 1%,rgba(255,165,0,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(255,208,91,1) 1%,rgba(255,165,0,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(255,208,91,1) 1%,rgba(255,165,0,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom, rgba(255,208,91,1) 1%,rgba(255,165,0,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd05b', endColorstr='#ffa500',GradientType=0 ); /* IE6-9 */
+  border-bottom: 2px solid #151515;
+  background-color: #222222;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); }
   .action-bar .title,
   .action-bar .subtitle,
@@ -133,7 +126,7 @@ ul.actions {
     height: 32px;
     line-height: 32px;
     font-size: 32px;
-    color: white;
+    color: #999999;
     text-align: center; }
   .action .icon-up-button {
     width: 10px;
@@ -190,3 +183,28 @@ ul.actions {
       top: -8px; }
     .action-overflow-icon i:after {
       top: 8px; }
+
+
+/**
+Custome
+*/
+
+.action-bar {
+  background-color: rgba(255,165,0,1);
+  border-bottom: 1px solid gray;
+}
+
+.action [class*="icon-"] {
+  color: white;
+}
+
+.td {
+  display: table-cell;
+  height: 48px;
+  vertical-align: middle;
+}
+
+.table {
+  display: table;
+  width: 100%;
+}

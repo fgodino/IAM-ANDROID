@@ -1,6 +1,6 @@
 'use strict';
 
-assetsApp.controller('MainCtrl', function ($scope, geolocation) {
+assetsApp.controller('MainCtrl', function ($scope, geolocation, $http, $location) {
   /*geolocation.getCurrentPosition(function (position) {
     alert('Latitude: '              + position.coords.latitude          + '\n' +
           'Longitude: '             + position.coords.longitude         + '\n' +
@@ -11,6 +11,21 @@ assetsApp.controller('MainCtrl', function ($scope, geolocation) {
           'Speed: '                 + position.coords.speed             + '\n' +
           'Timestamp: '             + position.timestamp                + '\n');
   });*/
+  $scope.search = false;
+
+  $scope.add = function(){
+    $http({method: 'POST', url: HOST + 'friends', data : {id : $scope.id}}).
+    success(function(data, status) {
+      $scope.search = false;
+    }).
+    error(function(data, status) {
+      alert("MAL")
+    });
+  };
+
+  $scope.addform = function(){
+    $scope.search = true;
+  };
 });
 
 
