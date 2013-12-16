@@ -626,7 +626,7 @@ function friesHello(){
   window.addEventListener('touchend', handleTouch);
   window.addEventListener('popstate', handlePopState);
 }());
-;(function () {
+/*;(function () {
   var getTarget = function (target) {
     var i, tabs = document.querySelectorAll('.tab-fixed li a');
     for (; target && target !== document; target = target.parentNode) {
@@ -643,6 +643,7 @@ function friesHello(){
     var className     = 'active';
     var classSelector = '.' + className;
     var targetAnchor  = getTarget(e.target);
+    console.log(targetAnchor);
 
     if (!targetAnchor) return;
 
@@ -669,8 +670,10 @@ function friesHello(){
     // Look for the index of the target and active bodies
     var sliderItems = document.querySelectorAll('.tab-item'),
         s = sliderItems.length;
+        console.log(s);
     while (s--) {
       // Show the hidden bodies and set their initial position
+      console.log(sliderItems[s]);
       sliderItems[s].classList.add('in-transition');
       sliderItems[s].style.left = (s * 100) + "%";
       if (sliderItems[s] == targetBody) targetIndex = s;
@@ -692,7 +695,7 @@ function friesHello(){
     }
 
   });
-}());
+}());*/
 ;this.fries = this.fries || {};
 
 (function () {

@@ -93,6 +93,11 @@ Custom
 .main-list > li {
   padding-left : 30px;
   background-color: rgb(238, 238, 238);
+  border-top : 1px solid #C7C7C7;
+}
+
+.main-list > li.list-divider {
+  border-top : 1px solid #C7C7C7;
 }
 
 .main-list h3 {

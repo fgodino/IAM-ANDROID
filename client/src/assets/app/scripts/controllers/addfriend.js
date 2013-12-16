@@ -1,20 +1,26 @@
 assetsApp.controller('AddfriendCtrl', function ($scope, $http, $location) {
+  var self = this;
 
-  $scope.search = true;
+  $scope.search = false;
+
 
   $scope.add = function(){
-  	$http({method: 'POST', url: HOST + 'friends', data : {id : $scope.id}}).
+    $http({method: 'POST', url: HOST + 'friends', data : {id : $scope.id}}).
     success(function(data, status) {
-    	alert("GUAY")
+      $scope.search = false;
     }).
     error(function(data, status) {
       alert("MAL")
-      $scope.search = false;
     });
   };
 
+  var deleteAdd = function(){
+      $scope.search = false;
+      $scope.id = "";
+    }
+
   $scope.addform = function(){
-    alert("pasa algi");
+    $scope.undo(self, deleteAdd);
     $scope.search = true;
   };
 });

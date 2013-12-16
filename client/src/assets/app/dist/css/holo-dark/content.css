@@ -96,3 +96,8 @@ Custom
 .page {
   background-color: white;
 }
+
+.content {
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
+}

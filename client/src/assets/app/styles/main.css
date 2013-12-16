@@ -168,4 +168,39 @@
   width: 1px;
 }
 
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  min-height: 100%;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+
+.bottom-send {
+  text-align: center;
+  position: fixed;
+  background: rgb(180, 180, 180);
+  bottom: 0;
+  padding: 8px;
+  width: 100%;
+  height: 60px;
+}
+
+.bottom-container {
+  margin-bottom: 60px;
+}
+
+.bottom-send .btn{
+  width: 100%;
+  margin: 0;
+}
+
 

@@ -23,12 +23,13 @@ var assetsApp = angular.module('assetsApp', ['angular-gestures', 'ngResource', '
         templateUrl: 'views/addfriend.html',
         controller: 'AddfriendCtrl'
       }).
+      when('/newstatus', {
+        templateUrl: 'views/new-status.html',
+        controller: 'NewStatusCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });
-
-      $locationProvider.html5Mode(true);
-      $locationProvider.hashPrefix('!');
 
   }]);
 
@@ -113,7 +114,14 @@ assetsApp.run(function($rootScope, $location, $window, $document, $cookieStore, 
 
   $rootScope.addStack = function(funback){
     stack.push(funback);
-    alert(stack.length);
+  }
+
+  $rootScope.undo = function(self, funback){
+    stack.push(function(){
+      angular.bind(self, function(){
+        $scope.$apply(funback);
+      });
+    });
   }
 
   function onBackKeyDown(evt) {

@@ -1,37 +1,20 @@
 <body >
   <div class="page">
 
-    <header class="action-bar fixed-top" ng-controller="AddfriendCtrl">
-      <div class="table">
-        <div class="td">
-          <a class="app-icon action" data-ignore="true">
-            <i class="icon-fries"></i>
-          </a>
-          <h1 ng-hide="search" class="title">IAM</h1>
-        </div>
-        <div ng-show="search" class="td action main-search">
-          <span class="input-pretty">
-            <input type="text" ng-model="id" placeholder="Introduce usuario o móvil" class="input-text">
-          </span>
-        </div>
-        <ul ng-hide="search" class="td actions pull-right">
-          <li><a href="javascript: void(0);" hm-tap="addform();" class="action" title="Add friend"><i class="icon-add-person"></i></a></li>
-          <li><a href="javascript: void(0);" hm-tap="go('/newstatus');" class="action" title="Add friend"><i class="icon-new-event"></i></a></li>
-        </ul>
-        <ul ng-show="search" class="td actions pull-right">
-          <li><a href="javascript: void(0);" hm-tap="add()" class="action" title="Add"><i class="icon-new"></i></a></li>
-        </ul>
-      </div>
+    <header class="action-bar fixed-top  text-center">
+    <strong class="sosie">Paso 1: Selecciona estado</strong>
     </header>
     <nav id="tabs" class="tab-fixed">
       <ul class="tab-inner">
-        <li><a href="#people" data-ignore="true"><i class="icon-group"></i></a></li>
-        <li><a href="#groups" data-ignore="true"><i class="icon-person"></i></a></li>
+        <li><a data-ignore="true"><i class="icon-group"></i></a></li>
+        <li><a data-ignore="true"><i class="icon-group"></i></a></li>
+        <li><a data-ignore="true"><i class="icon-group"></i></a></li>
+        <li><a data-ignore="true"><i class="icon-group"></i></a></li>
       </ul>
     </nav>
 
     <div class="content">
-      <div my-Swipe class="swipe" id="slider">
+      <div my-Swipe class="bottom-container swipe" id="slider">
         <div class='swipe-wrap'>
           <div>
             <ul class="list main-list" ng-controller="listCtrl">
@@ -51,7 +34,11 @@
           </div>
         </div>
       </div>
+      <div class="bottom-send">
+        <button class="btn">Siguiente</button>
+      </div>
     </div>
+
 
     <div class="dialogs">
       <!-- This is a requried container for your dialogs. All dialogs that you want to display in this page go here -->

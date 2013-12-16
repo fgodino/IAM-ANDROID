@@ -3,16 +3,12 @@ assetsApp.controller('LoginCtrl', function ($scope, $http, $location, Auth) {
 
   $scope.submit = function(){
 
-    Auth.setCredentials($scope.user.username, $scope.user.password);
-
-    $http.post(HOST + 'login')
-      .success(function(data){
-        $location.path('/');
-      })
-      .error(function(){
-        Auth.clearCredentials();
-        alert("Error");
-        console.log("Error");
-      });
+    Auth.login($scope.user.username, $scope.user.password, function(err, res){
+      if(err){
+        return $location.path('/login');
+      }
+      $location.path('/');
+    });
+                
   }
 });
