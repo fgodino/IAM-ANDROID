@@ -81,6 +81,11 @@ app.get('/me',
   auth.authenticate('basic', { session: false }),
   user.getMe);
 
+app.put('/me',
+  //auth.authenticate('basic', { session: false }),
+  user.getMultipart,
+  user.modify);
+
 app.post('/status',
   auth.authenticate('basic', { session: false }),
   status.new);
@@ -91,4 +96,6 @@ app.get('/status/:id',
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+  //process.setgid(config.gid);
+  //process.setuid(config.uid);
 });

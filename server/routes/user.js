@@ -1,12 +1,16 @@
+var Busboy = require('busboy');
+var path = require('path');
+var inspect = require('util').inspect;
+var fs = require('fs');
 
 /*
  * GET users listing.
  */
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
+ var mongoose = require('mongoose');
+ var User = mongoose.model('User');
 
 
-exports.get = get = function(req, res){
+ exports.get = get = function(req, res){
   User
   .findOne({username : req.params.id})
   .populate('current_status')
@@ -32,7 +36,7 @@ exports.getFriends = getFriends = function(req, res){
   .populate('following', 'username likes name picture current_status')
   .exec(function (err, users) {
     console.log(users);
-    User.populate(users.following, {path : 'current_status', select : "status color"}, function(err, doc){
+    User.populate(users.following, {path : 'current_status', select : "status color date"}, function(err, doc){
       res.send(doc);
     });
   });
@@ -59,4 +63,26 @@ exports.addFriend = addFriend = function(req, res){
       return res.send("Ok");
     });
   });
+}
+
+exports.getMultipart = getMultipart = function(req, res, next){
+  console.log(req.headers);
+
+  var busboy = new Busboy({ headers: req.headers });
+  busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+    var saveTo = path.join('.', path.basename(fieldname));
+    console.log(saveTo);
+    file.pipe(fs.createWriteStream(saveTo));
+  });
+  busboy.on('field', function(fieldname, val, valTruncated, keyTruncated) {
+      console.log('Field [' + fieldname + ']: value: ' + inspect(val));
+    });
+  busboy.on('end', function() {
+    next();
+  });
+  return req.pipe(busboy);
+}
+
+exports.modify = modify = function(req, res){
+  res.send(200);
 }
