@@ -82,7 +82,7 @@ app.get('/me',
   user.getMe);
 
 app.put('/me',
-  //auth.authenticate('basic', { session: false }),
+  auth.authenticate('basic', { session: false }),
   user.getMultipart,
   user.modify);
 

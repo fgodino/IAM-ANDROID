@@ -3,6 +3,8 @@ var path = require('path');
 var inspect = require('util').inspect;
 var fs = require('fs');
 
+var crypto = require('crypto');
+
 /*
  * GET users listing.
  */
@@ -66,12 +68,19 @@ exports.addFriend = addFriend = function(req, res){
 }
 
 exports.getMultipart = getMultipart = function(req, res, next){
-  console.log(req.headers);
 
-  var busboy = new Busboy({ headers: req.headers });
+  console.log(req);
+
+  var busboy = new Busboy({ headers: req.headers});
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-    var saveTo = path.join('.', path.basename(fieldname));
+
+    var files = {};
+    var id = crypto.randomBytes(5).toString('hex');
+    var saveTo = path.join(__dirname + '/../tmp', id);
+
     console.log(saveTo);
+
+    files[fieldname] = saveTo;
     file.pipe(fs.createWriteStream(saveTo));
   });
   busboy.on('field', function(fieldname, val, valTruncated, keyTruncated) {
@@ -80,6 +89,9 @@ exports.getMultipart = getMultipart = function(req, res, next){
   busboy.on('end', function() {
     next();
   });
+  busboy.on('error', function(err) {
+    console.log(err);
+  })
   return req.pipe(busboy);
 }
 
