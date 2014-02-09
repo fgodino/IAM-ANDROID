@@ -44,6 +44,7 @@ app.use(express.methodOverride());
 app.use(allowCrossDomain);
 app.use(auth.initialize());
 app.use(app.router);
+app.use(express.static(__dirname + '/public'));
 
 // development only
 if ('development' == app.get('env')) {

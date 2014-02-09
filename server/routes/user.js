@@ -2,6 +2,8 @@ var Busboy = require('busboy');
 var path = require('path');
 var inspect = require('util').inspect;
 var fs = require('fs');
+var _ = require('underscore');
+var config = require('../config.js');
 
 var crypto = require('crypto');
 
@@ -69,32 +71,35 @@ exports.addFriend = addFriend = function(req, res){
 
 exports.getMultipart = getMultipart = function(req, res, next){
 
-  console.log(req);
-
   var busboy = new Busboy({ headers: req.headers});
+  var body = {};
+
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+    var id = req.user.id + crypto.randomBytes(5).toString('hex');
+    var saveTo = path.join(__dirname + '/../public/images', id);
 
-    var files = {};
-    var id = crypto.randomBytes(5).toString('hex');
-    var saveTo = path.join(__dirname + '/../tmp', id);
-
-    console.log(saveTo);
-
-    files[fieldname] = saveTo;
+    body[fieldname] = '/images/' + id;
     file.pipe(fs.createWriteStream(saveTo));
   });
   busboy.on('field', function(fieldname, val, valTruncated, keyTruncated) {
-      console.log('Field [' + fieldname + ']: value: ' + inspect(val));
-    });
+    body[fieldname] = val;
+  });
   busboy.on('end', function() {
+    req.body = body;
     next();
   });
-  busboy.on('error', function(err) {
-    console.log(err);
-  })
+
   return req.pipe(busboy);
 }
 
 exports.modify = modify = function(req, res){
-  res.send(200);
+  var newBody = _.pick(req.body, config.updateUserValues);
+  var options = {new : true};
+
+  User.findByIdAndUpdate(req.user.id, newBody, options, function(err, update){
+    if(err){
+      return res.send(500);
+    }
+    return res.send(update);
+  });
 }
