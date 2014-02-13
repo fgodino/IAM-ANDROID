@@ -32,7 +32,7 @@
         android:background="@color/WhiteSmoke"
         android:padding="3dip" >
 
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/friend_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -69,8 +69,8 @@
         android:id="@+id/friend_colortag"
         android:layout_width="10dp"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
         android:layout_alignBottom="@+id/thumbnail"
+        android:layout_alignParentLeft="true"
         android:background="@color/red" />
 
 </RelativeLayout>

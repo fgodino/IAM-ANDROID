@@ -1,8 +1,5 @@
 package com.godino.emotion;
 
-import android.annotation.SuppressLint;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -28,14 +25,19 @@ public class MainActivity extends SherlockFragmentActivity implements
 	private ActionBar actionBar;
 
 	private ImageButton buttonNewStatus;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Intent myIntent = new Intent(this, LoginActivity.class);
+		startActivityForResult(myIntent, 0);
+		
 		setContentView(R.layout.activity_main);
 
 		// Initilization
-		viewPager = (ViewPager) findViewById(R.id.pager);
+		viewPager = (ViewPager) findViewById(R.id.main_pager);
 		actionBar = getSupportActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
@@ -79,6 +81,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 				startActivityForResult(myIntent, 0);
 			}
 		});
+		
+		
 	}
 
 	@Override

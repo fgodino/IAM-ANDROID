@@ -2,6 +2,7 @@ package com.godino.emotion.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.godino.emotion.FriendsFragment;
@@ -24,7 +25,6 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 		case 1:
 			return new MeFragment();
 		case 2:
-			// Movies fragment activity
 			return new WorldFragment();
 		}
 

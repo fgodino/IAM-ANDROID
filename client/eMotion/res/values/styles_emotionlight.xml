@@ -17,7 +17,7 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.Emotionlight" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_emotionlight</item>
@@ -78,5 +78,42 @@
         <item name="popupMenuStyle">@style/PopupMenu.Emotionlight</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Emotionlight</item>
     </style>
+    
+    <style name="Widget.Group" parent="@android:style/Widget.EditText">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">46dp</item>
+		<item name="android:layout_marginLeft">10dp</item>
+		<item name="android:layout_marginRight">10dp</item>
+		<item name="android:layout_marginTop">-1dp</item> <!-- Ensures we don't get a 2 dp top stroke -->
+		<item name="android:padding">4dp</item>
+		<item name="android:paddingLeft">20dp</item>
+		<item name="android:background">@drawable/bg_input_group</item>
+		<item name="android:textColorHint">@color/gray</item>
+		<item name="android:textColor">@color/HoloBlack</item>
+	</style>
 
+	<style name="Widget.Group.Top">
+		<item name="android:layout_marginTop">10dp</item>
+		<item name="android:background">@drawable/bg_input_top</item>
+	</style>
+
+	<style name="Widget.Group.Bottom">
+		<item name="android:background">@drawable/bg_input_bottom</item>
+	</style>
+
+	<style name="Widget.Group.Single" parent="Widget.Group.Top">
+		<item name="android:background">@drawable/bg_input_single</item>
+	</style>
+	
+	<style name="Widget.Button" parent="@android:style/Widget.Button">
+	    <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">46dp</item>
+	    <item name="android:layout_height">46dp</item>
+		<item name="android:layout_marginLeft">10dp</item>
+		<item name="android:layout_marginRight">10dp</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:layout_marginTop">20dp</item>
+		<item name="android:background">@drawable/bg_button_single</item>
+		<item name="android:textColor">@color/white</item>
+	</style>
 </resources>

@@ -69,21 +69,28 @@ exports.addFriend = addFriend = function(req, res){
   });
 }
 
+function getExtension(filename) {
+    var ext = path.extname(filename||'').split('.');
+    return ext[ext.length - 1];
+}
+
 exports.getMultipart = getMultipart = function(req, res, next){
 
   var busboy = new Busboy({ headers: req.headers});
   var body = {};
 
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-    var id = req.user.id + crypto.randomBytes(5).toString('hex');
+    var id = req.user.id + crypto.randomBytes(5).toString('hex') + '.' + getExtension(filename);
     var saveTo = path.join(__dirname + '/../public/images', id);
 
     body[fieldname] = '/images/' + id;
     file.pipe(fs.createWriteStream(saveTo));
   });
+
   busboy.on('field', function(fieldname, val, valTruncated, keyTruncated) {
     body[fieldname] = val;
   });
+
   busboy.on('end', function() {
     req.body = body;
     next();
@@ -93,6 +100,7 @@ exports.getMultipart = getMultipart = function(req, res, next){
 }
 
 exports.modify = modify = function(req, res){
+  console.log(req.body);
   var newBody = _.pick(req.body, config.updateUserValues);
   var options = {new : true};
 

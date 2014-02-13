@@ -27,7 +27,7 @@
                 android:background="@color/WhiteSmoke"
                 android:padding="3dip" >
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/me_image"
                     android:layout_width="70dp"
                     android:layout_height="70dp"

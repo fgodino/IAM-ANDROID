@@ -3,26 +3,35 @@
  * Module dependencies.
  */
 
-var fs = require('fs');
-var models_path = __dirname + '/models'
-fs.readdirSync(models_path).forEach(function (file) {
+ var fs = require('fs');
+ var path = require('path');
+
+ var models_path = __dirname + '/models';
+ fs.readdirSync(models_path).forEach(function (file) {
   console.log(file);
   if (~file.indexOf('.js')) require(models_path + '/' + file)
 });
 
-var express = require('express');
-var http = require('http');
-var path = require('path');
-var mongoose = require('mongoose');
-var auth = require('./auth.js');
-var validate = require('./lib/validate.js');
+ var express = require('express');
+ var https = require('https');
+ var path = require('path');
+ var mongoose = require('mongoose');
+ var auth = require('./auth.js');
+ var validate = require('./lib/validate.js');
+
+ var dirModule = path.dirname(module.filename);
+
+ var secureOptions = {
+  key: path.resolve(dirModule, './utils/server/server.key'),
+  cert: path.resolve(dirModule, './utils/server/server.crt')
+};
 
 mongoose.connect('mongodb://localhost/test');
 
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
@@ -31,9 +40,9 @@ var allowCrossDomain = function(req, res, next) {
     else {
       next();
     }
-};
+  };
 
-var app = express();
+  var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 6001);
@@ -95,7 +104,12 @@ app.get('/status/:id',
   auth.authenticate('basic', { session: false }),
   status.get);
 
-http.createServer(app).listen(app.get('port'), function(){
+var options = {
+        key: fs.readFileSync(secureOptions.key),
+        cert: fs.readFileSync(secureOptions.cert)
+      };
+
+https.createServer(options, app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
   //process.setgid(config.gid);
   //process.setuid(config.uid);

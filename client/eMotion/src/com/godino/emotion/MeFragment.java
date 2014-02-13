@@ -1,18 +1,11 @@
 package com.godino.emotion;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-
-import com.godino.emotion.R;
-import com.godino.emotion.utils.ImageUploaderTask;
-import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,35 +15,44 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.Request.Method;
+import com.android.volley.toolbox.NetworkImageView;
+import com.godino.emotion.models.Person;
+import com.godino.emotion.models.Status;
+import com.godino.emotion.utils.DateTypeAdapter;
+import com.godino.emotion.utils.GsonRequest;
+import com.godino.emotion.utils.VolleyLoaders;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class MeFragment extends SherlockFragment {
 
 
-	private static final String TEMP_PHOTO_FILE = "temporary_holder.jpg"; 
 	final int REQ_CODE_PICK_IMAGE= 1;
 	final int REQ_CODE_CROP_IMAGE= 2;
 
 	View thumbnail;
 	private CharSequence[] items;
 	private Uri outputTemp;
-	ImageView picture;
+	NetworkImageView picture;
+	private TextView name;
+	private TextView status_name;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +66,7 @@ public class MeFragment extends SherlockFragment {
 	@Override
 	public void onActivityCreated(Bundle state){
 		super.onActivityCreated(state);
-
+		
 		final AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
 
 		items = new CharSequence[]{getResources().getText(R.string.change_picture),
@@ -83,7 +85,9 @@ public class MeFragment extends SherlockFragment {
 			}
 		});
 
-		picture = (ImageView) getView().findViewById(R.id.me_image);
+		name = (TextView) getView().findViewById(R.id.me_name);
+		status_name = (TextView) getView().findViewById(R.id.me_status);
+		picture = (NetworkImageView) getView().findViewById(R.id.me_image);
 		thumbnail = getView().findViewById(R.id.me_thumbnail);
 		thumbnail.setOnClickListener(new OnClickListener() {
 
@@ -94,8 +98,52 @@ public class MeFragment extends SherlockFragment {
 
 			}
 		});
+		getMe();
 
+	}
+	
+	public static final String SERVER_URL_GETME = "https://10.0.2.2:6001/me";
+	
+	public void getMe(){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateTypeAdapter());
 
+		Gson gson = gsonBuilder.create();
+		GsonRequest<Person> myReq = new GsonRequest<Person>(Method.GET,
+				SERVER_URL_GETME,
+				Person.class,
+				createMyReqSuccessListener(),
+				createMyReqErrorListener(),
+				gson,
+				true);
+
+		myReq.setShouldCache(true);
+
+		ApplicationController.getInstance().addToSecureRequestQueue(myReq);
+	}
+
+	private Response.Listener<Person> createMyReqSuccessListener() {
+		return new Response.Listener<Person>() {
+			@Override
+			public void onResponse(Person response) {
+				Status status = response.getStatus();
+				name.setText(response.getName());
+				picture.setImageUrl("http://upload.wikimedia.org/wikipedia/commons/f/fc/Nemer_Saade_Profile_Picture.jpg", VolleyLoaders.mImageLoader);
+				
+				if(status != null){
+					status_name.setText(status.getTitle());
+				}
+			}
+		};
+	}
+
+	private Response.ErrorListener createMyReqErrorListener() {
+		return new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Toast.makeText(getSherlockActivity(), "Unable to get friends", Toast.LENGTH_SHORT).show();
+			}
+		};
 	}
 
 	private void performCrop(Uri picUri) {
@@ -201,24 +249,8 @@ public class MeFragment extends SherlockFragment {
 				performCrop(selectedImageUri);
 			}
 			else if (requestCode == REQ_CODE_CROP_IMAGE) { 
-				Picasso.with(getSherlockActivity())
-				.load(outputTemp)
-				.into(picture);
 				
-				ImageUploaderTask upload = new ImageUploaderTask(getActivity());
-				try {
-					HttpResponse get = upload.execute(new String[]{outputTemp.getPath()}).get();
-					StatusLine statusLine = get.getStatusLine();
-					if(statusLine.getStatusCode() == 200){
-						
-					} else {
-						Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					e.printStackTrace();
-				}
+				
 			}
 		}
 	}

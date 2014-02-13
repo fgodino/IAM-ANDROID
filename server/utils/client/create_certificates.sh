@@ -1,0 +1,1 @@
+keytool -genkeypair -v -alias "my client key" -validity 365 -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath "../bcprov-jdk16-146.jar" -keystore keystore.bks -storepass emotion -storetype BKS
